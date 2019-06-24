@@ -1,7 +1,7 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! go#util#GetLines()
+function! smallgo#util#GetLines()
   let buf = getline(1, '$')
   if &encoding != 'utf-8'
     let buf = map(buf, 'iconv(v:val, &encoding, "utf-8")')
