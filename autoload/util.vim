@@ -12,5 +12,18 @@ function! smallgo#util#GetLines()
   return buf
 endfunction
 
+" IsWin returns 1 if current OS is Windows or 0 otherwise
+function! smallgo#util#IsWin() abort
+  let win = ['win16', 'win32', 'win64', 'win95']
+  for w in win
+    if (has(w))
+      return 1
+    endif
+  endfor
+
+  return 0
+endfunction
+
+
 let &cpo = s:save_cpo
 unlet s:save_cpo
