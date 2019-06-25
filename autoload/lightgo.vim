@@ -1,7 +1,7 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-function! smallgo#gofmt()
+function! lightgo#format()
   let l:curw = winsaveview()
   silent execute "0,$! gofmt"
   try | silent undojoin | catch | endtry
