@@ -1,6 +1,24 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
+
+function! lightgo#util#EchoSuccess(msg)
+  call s:echo(a:msg, 'Function')
+endfunction
+function! lightgo#util#EchoError(msg)
+  call s:echo(a:msg, 'ErrorMsg')
+endfunction
+function! lightgo#util#EchoWarning(msg)
+  call s:echo(a:msg, 'WarningMsg')
+endfunction
+function! lightgo#util#EchoProgress(msg)
+  redraw
+  call s:echo(a:msg, 'Identifier')
+endfunction
+function! lightgo#util#EchoInfo(msg)
+  call s:echo(a:msg, 'Debug')
+endfunction
+
 function! lightgo#util#GetLines()
   let buf = getline(1, '$')
   if &encoding != 'utf-8'
@@ -22,6 +40,26 @@ function! lightgo#util#IsWin() abort
   endfor
 
   return 0
+endfunction
+
+function! lightgo#util#Exec(cmd, ...) abort
+  if len(a:cmd) == 0
+    call lightgo#util#EchoError("lightgo#util#Exec() called with empty a:cmd")
+    return ['', 1]
+  endif
+
+  let l:bin = a:cmd[0]
+
+  " Lookup the full path, respecting settings such as 'go_bin_path'. On errors,
+  " CheckBinPath will show a warning for us.
+  let l:bin = lightgo#path#CheckBinPath(l:bin)
+  if empty(l:bin)
+    return ['', 1]
+  endif
+
+  " Finally execute the command using the full, resolved path. Do not pass the
+  " unmodified command as the correct program might not exist in $PATH.
+  return call('s:exec', [[l:bin] + a:cmd[1:]] + a:000)
 endfunction
 
 
