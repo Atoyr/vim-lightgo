@@ -1,7 +1,7 @@
-# vim-smallgo
+# vim-lightgo
 
 ## About
-vim-smallgo is small go tools
+vim-lightgo is light go tools
 
 ## Feature
 * `gofmt` to open file.
@@ -9,5 +9,5 @@ vim-smallgo is small go tools
 ## Install
 - vim-plug
 ```
-Plug 'atoyr/vim-smallgo'
+Plug 'atoyr/vim-lightgo'
 ```
